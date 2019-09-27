@@ -23,7 +23,6 @@ class Utils(object):
 
     @staticmethod
     def get_similarity(matrix, knn, shrink, normalize, similarity):
-        print(matrix.shape)
         similarity = Cython_Cosine_Similarity(matrix, normalize=normalize, shrink=shrink, similarity=similarity,
                                               topK=knn)
         return similarity.compute_similarity().tocsr()

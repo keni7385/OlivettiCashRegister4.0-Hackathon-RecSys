@@ -11,4 +11,4 @@ class User_CFR(object):
 
     def recommend(self, target_playlist):
         row_cf_u = (self.S_CF_U[target_playlist].dot(self.URM)).toarray().ravel()
-        return self.u.get_top_10(self.URM, target_playlist, row_cf_u)
+        return self.u.get_top_3(self.URM, target_playlist, row_cf_u)

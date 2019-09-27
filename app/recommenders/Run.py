@@ -23,7 +23,7 @@ class Recommender(object):
 
 if __name__ == '__main__':
 
-        target_receipt = None
+        target_receipt = 10
 
         run = Recommender()
-        run.recommend_userCFR(target_receipt)
+        run.recommend_userCFR(target_receipt=target_receipt)
