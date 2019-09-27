@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 import scipy.sparse as sp
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.preprocessing import MultiLabelBinarizer
@@ -16,7 +17,7 @@ class Utils(object):
     def get_top_10(URM, target_playlist, row):
         my_songs = URM.indices[URM.indptr[target_playlist]:URM.indptr[target_playlist + 1]]
         row[my_songs] = -np.inf
-        relevant_items_partition = (-row).argpartition(10)[0:10]
+        relevant_items_partition = (-row).argpartition(3)[0:3]
         relevant_items_partition_sorting = np.argsort(-row[relevant_items_partition])
         ranking = relevant_items_partition[relevant_items_partition_sorting]
         return ranking
@@ -36,8 +37,11 @@ class Utils(object):
             return UCM
 
     def build_URM(self):
-        grouped = self.train.groupby('playlist_id', as_index=True).apply((lambda playlist: list(playlist['track_id'])))
-        URM = MultiLabelBinarizer(classes=self.tracks['track_id'].unique(), sparse_output=True).fit_transform(grouped)
+        user_list = self.train.playlist_id.values
+        item_list = self.train.track_id.values
+        rating_list = np.ones(len(user_list))
+        URM = sp.coo_matrix((rating_list, (user_list, item_list)))
+
         return URM.tocsr()
 
     def get_usersim_CF(self, URM, knn, shrink, normalize=True, similarity='cosine', tfidf=True):

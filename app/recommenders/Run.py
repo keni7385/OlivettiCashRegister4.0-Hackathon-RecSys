@@ -12,15 +12,18 @@ class Recommender(object):
         self.e = Eval(self.u)
         self.URM_full = self.u.URM
 
-    def generate_result(self, recommender, path):
-                return self.e.generate_predictions(recommender, path)
+    def generate_result(self, recommender, path, target_receipt):
+                return self.e.generate_predictions(recommender, path, target_receipt)
 
-    def recommend_userCFR(self, knn=150, shrink=10, normalize=True, similarity='cosine', tfidf=True):
+    def recommend_userCFR(self, knn=150, shrink=10, normalize=True, similarity='cosine', tfidf=True, target_receipt=None):
         rec = User_CFR(self.u)
         rec.fit(self.URM_full, knn, shrink, normalize, similarity, tfidf)
-        return self.generate_result(rec, None)
+        return self.generate_result(rec, None, target_receipt)
 
 
 if __name__ == '__main__':
+
+        target_receipt = None
+
         run = Recommender()
-        run.recommend_userCFR()
+        run.recommend_userCFR(target_receipt)
