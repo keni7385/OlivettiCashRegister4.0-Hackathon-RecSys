@@ -7,7 +7,7 @@ import pandas as pd
 class Recommender(object):
 
     def __init__(self):
-        self.train = pd.read_csv("data/train.csv")
+        self.train = pd.read_csv("../data/train.csv")
         self.u = Utils(self.train)
         self.e = Eval(self.u)
         self.URM_full = self.u.URM

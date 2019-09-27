@@ -7,8 +7,6 @@ class Eval(object):
 
     def __init__(self, u):
         self.URM = u.URM
-        self.train_sequential = u.train_sequential
-        self.target_playlists = u.target_playlists
         self.URM_test = None
 
     def generate_predictions(self, recommender, path, target_receipt):

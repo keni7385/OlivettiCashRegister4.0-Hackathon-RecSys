@@ -2,7 +2,6 @@ import numpy as np
 import pandas as pd
 import scipy.sparse as sp
 from sklearn.feature_extraction.text import TfidfTransformer
-from sklearn.preprocessing import MultiLabelBinarizer
 
 from app.recommenders.cython.Compute_Similarity_Cython import Compute_Similarity_Cython as Cython_Cosine_Similarity
 
@@ -14,7 +13,7 @@ class Utils(object):
         self.URM = self.build_URM()
 
     @staticmethod
-    def get_top_10(URM, target_playlist, row):
+    def get_top_3(URM, target_playlist, row):
         my_songs = URM.indices[URM.indptr[target_playlist]:URM.indptr[target_playlist + 1]]
         row[my_songs] = -np.inf
         relevant_items_partition = (-row).argpartition(3)[0:3]
@@ -24,6 +23,7 @@ class Utils(object):
 
     @staticmethod
     def get_similarity(matrix, knn, shrink, normalize, similarity):
+        print(matrix.shape)
         similarity = Cython_Cosine_Similarity(matrix, normalize=normalize, shrink=shrink, similarity=similarity,
                                               topK=knn)
         return similarity.compute_similarity().tocsr()
