@@ -23,13 +23,22 @@ def post_transaction():
     return jsonify({'offers': [
         {
             "sku": "12334424643853",
-            "discount": "20"
+            "name": "Tea",
+            "picture_link": "http://image.spaceify.net/thumbnails/HnSvjEldBS5bfyM1PmpHolVg.jpg",
+            "price": 200,
+            "discount": 20
         }, {
             "sku": "36436436",
-            "discount": "10"
+            "name": "Coffee",
+            "picture_link": "http://image.spaceify.net/thumbnails/1BiBmjiFiL6WvSjeqa6RsSHz.jpg",
+            "price": 230,
+            "discount": 10
         }, {
             "sku": "9789529368440",
-            "discount": "20"
+            "name": "Sailing in Finland",
+            "picture_link": "http://image.spaceify.net/thumbnails/tM4P4yKCa0-bkzmwT3-VXIFl.jpg",
+            "price": 23000,
+            "discount": 40
         }]})
 
 
