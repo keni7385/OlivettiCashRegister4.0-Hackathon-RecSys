@@ -12,13 +12,17 @@ import os
 class Recommender(object):
 
     def __init__(self):
-        self.train = pd.read_csv("app/data/train.csv")
+        try:
+            self.train = pd.read_csv("app/data/train.csv")
+        except FileNotFoundError:
+            self.train = pd.read_csv("../data/train.csv")
+
         self.u = Utils(self.train)
         self.e = Eval(self.u)
         self.URM_full = self.u.URM
 
     def generate_result(self, recommender, path, target_receipt):
-                return self.e.generate_predictions(recommender, path, target_receipt)
+        return self.e.generate_predictions(recommender, path, target_receipt)
 
     def recommend_userCFR(self, knn=150, shrink=10, normalize=True, similarity='cosine', tfidf=True, target_receipt=None):
         rec = User_CFR(self.u)
@@ -56,12 +60,15 @@ class Recommender(object):
 
         mat_coo = sp.coo_matrix((data, (row_ind, col_ind)))
         target_receipt = mat_coo.tocsr()
+        #return target_receipt
+        target_receipt = sp.csr_matrix((data, (row_ind, col_ind)), shape=(1, 24))
         return target_receipt
 
 
 if __name__ == '__main__':
 
-        data = [0, 2, 3, 4, 20634]
+        data = [10,18]
 
         run = Recommender()
-        run.recommend_itemCFR(target_receipt=data)
+        result = run.recommend_itemCFR(target_receipt=data)
+        print(result)

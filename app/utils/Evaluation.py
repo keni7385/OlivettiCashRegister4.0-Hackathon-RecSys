@@ -12,5 +12,4 @@ class Eval(object):
             print(len(recommended_items))
 
         # return list of recommended items
-        print(recommended_items)
         return recommended_items

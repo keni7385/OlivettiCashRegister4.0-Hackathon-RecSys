@@ -17,7 +17,7 @@ class Utils(object):
         # from sparse to dense to filter items already present in the list
         target_playlist = target_playlist.todense()
 
-        row[target_playlist] = -np.inf
+        row[np.squeeze(np.asarray(target_playlist == 1))] = -np.inf
         #row[my_songs] = -np.inf
 
 
