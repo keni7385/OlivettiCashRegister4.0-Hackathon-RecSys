@@ -24,5 +24,6 @@ Werkzeug==0.15.2
 pandas==0.25.0
 tqdm==4.36.1
 cython
+requests
 
 psycopg2==2.8.2
