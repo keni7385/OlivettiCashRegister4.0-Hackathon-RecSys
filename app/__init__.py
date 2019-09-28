@@ -7,11 +7,14 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_cors import CORS
+from app.recommenders.Recommender import Recommender
 
 db = SQLAlchemy()
 migrate = Migrate()
 login = LoginManager()
 
+# instance of recommender system to be invoked
+recommender = Recommender()
 
 def create_app(config_class=Config):
     app = Flask(__name__)

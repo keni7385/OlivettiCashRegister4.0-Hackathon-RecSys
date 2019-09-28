@@ -9,6 +9,6 @@ class Item_CFR(object):
         self.URM = URM
         self.S_CF_I = self.u.get_itemsim_CF(self.URM, knn, shrink, normalize, similarity, tfidf)
 
-    def recommend(self, target_playlist, target_receipt=None):
-        row_cf_i = (self.URM[target_playlist].dot(self.S_CF_I)).toarray().ravel()
+    def recommend(self, target_playlist):
+        row_cf_i = (target_playlist.dot(self.S_CF_I)).toarray().ravel()
         return self.u.get_top_3(self.URM, target_playlist, row_cf_i)

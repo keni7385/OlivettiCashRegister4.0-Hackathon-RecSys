@@ -11,5 +11,7 @@ class User_CFR(object):
         print(self.S_CF_U.shape)
 
     def recommend(self, target_playlist):
+        print(type(self.S_CF_U[target_playlist]))
+        print(self.S_CF_U[target_playlist])
         row_cf_u = (self.S_CF_U[target_playlist].dot(self.URM)).toarray().ravel()
         return self.u.get_top_3(self.URM, target_playlist, row_cf_u)

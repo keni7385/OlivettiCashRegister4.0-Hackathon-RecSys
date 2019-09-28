@@ -14,8 +14,16 @@ class Utils(object):
 
     @staticmethod
     def get_top_3(URM, target_playlist, row):
-        my_songs = URM.indices[URM.indptr[target_playlist]:URM.indptr[target_playlist + 1]]
-        row[my_songs] = -np.inf
+        #my_songs = URM.indices[URM.indptr[target_playlist]:URM.indptr[target_playlist + 1]]
+
+        # from sparse to dense to filter items already present in the list
+        target_playlist = target_playlist.todense()
+
+        row[target_playlist] = -np.inf
+        #row[my_songs] = -np.inf
+
+
+
         relevant_items_partition = (-row).argpartition(3)[0:3]
         relevant_items_partition_sorting = np.argsort(-row[relevant_items_partition])
         ranking = relevant_items_partition[relevant_items_partition_sorting]
@@ -38,7 +46,6 @@ class Utils(object):
     def build_URM(self):
         user_list = self.train.playlist_id.values
         item_list = self.train.track_id.values
-        print(len(np.unique(user_list)))
         rating_list = np.ones(len(user_list))
         URM = sp.coo_matrix((rating_list, (user_list, item_list)))
 
@@ -50,4 +57,12 @@ class Utils(object):
 
     def get_itemsim_CF(self, URM, knn, shrink, normalize=True, similarity='cosine', tfidf=True):
         UCM = self.get_UCM(URM, tfidf)
-        return self.get_similarity(UCM, knn, shrink, normalize, similarity)
+
+        try:
+            item_sim = sp.load_npz("item_sim.npz")
+            print("similarity matrix loaded from file")
+        except:
+            print("similarity matrix non available, proceed to compute")
+            item_sim = self.get_similarity(UCM, knn, shrink, normalize, similarity)
+            sp.save_npz("item_sim.npz", item_sim)
+        return item_sim
