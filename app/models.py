@@ -6,7 +6,7 @@ class Discount(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     transaction_id = db.Column(db.String(64), index=True)
     sku_id = db.Column(db.String(64), index=True, unique=True)
-    discounted_sku_id = db.Column(db.String(64), index=True)
+    discounted_sku_id = db.Column(db.String(64))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
     def to_dict(self, include_email=False):
