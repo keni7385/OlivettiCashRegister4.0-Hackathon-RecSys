@@ -76,7 +76,7 @@ def copy_product_discount(sku, discount):
 
     # update data
     data["productSku"] = "discount_%s_%s" % (data["productSku"], str(randrange(1000)+1))
-    data["productPrice"] = int(data["productPrice"] * discount)
+    data["productPrice"] = int(data["productPrice"] * (discount if discount > 1 or discount < -1 else discount/100))
     data["productName"] = "Discounted %s" % data["productName"]
 
     post_url = "https://www.selfscanner.net/wsbackend/users/hackathon/products"
