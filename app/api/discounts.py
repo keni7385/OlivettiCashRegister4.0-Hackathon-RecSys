@@ -24,7 +24,7 @@ def post_transaction():
         {
             "sku": "36436436",
             "name": "Coffee",
-            "picture_link": "http://image.spaceify.net/thumbnails/1BiBmjiFiL6WvSjeqa6RsSHz.jpg",
+            "picture_link": "http://image.spaceify.net/thumbnails/fxS3yvmhArek5klbvBJE8nOr.png",
             "price": 230,
             "discount": 20
         }, {
