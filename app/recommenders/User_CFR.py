@@ -8,6 +8,7 @@ class User_CFR(object):
     def fit(self, URM, knn, shrink, normalize, similarity, tfidf):
         self.URM = URM
         self.S_CF_U = self.u.get_usersim_CF(self.URM, knn, shrink, normalize, similarity, tfidf)
+        print(self.S_CF_U.shape)
 
     def recommend(self, target_playlist):
         row_cf_u = (self.S_CF_U[target_playlist].dot(self.URM)).toarray().ravel()

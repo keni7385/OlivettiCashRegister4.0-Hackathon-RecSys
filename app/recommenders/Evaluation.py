@@ -6,7 +6,7 @@ class Eval(object):
 
     def generate_predictions(self, recommender, path, target_receipt):
 
-        recommended_items = recommender.recommend(int(target_receipt))
+        recommended_items = recommender.recommend(target_receipt)
 
         if len(recommended_items) != 3:
             print(len(recommended_items))

@@ -38,6 +38,7 @@ class Utils(object):
     def build_URM(self):
         user_list = self.train.playlist_id.values
         item_list = self.train.track_id.values
+        print(len(np.unique(user_list)))
         rating_list = np.ones(len(user_list))
         URM = sp.coo_matrix((rating_list, (user_list, item_list)))
 
@@ -45,4 +46,8 @@ class Utils(object):
 
     def get_usersim_CF(self, URM, knn, shrink, normalize=True, similarity='cosine', tfidf=True):
         UCM = self.get_UCM(URM.T, tfidf)
+        return self.get_similarity(UCM, knn, shrink, normalize, similarity)
+
+    def get_itemsim_CF(self, URM, knn, shrink, normalize=True, similarity='cosine', tfidf=True):
+        UCM = self.get_UCM(URM, tfidf)
         return self.get_similarity(UCM, knn, shrink, normalize, similarity)
