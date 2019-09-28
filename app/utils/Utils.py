@@ -3,8 +3,6 @@ import pandas as pd
 import scipy.sparse as sp
 from sklearn.feature_extraction.text import TfidfTransformer
 
-from app.recommenders.cython.Compute_Similarity_Cython import Compute_Similarity_Cython as Cython_Cosine_Similarity
-
 
 class Utils(object):
 
@@ -31,6 +29,9 @@ class Utils(object):
 
     @staticmethod
     def get_similarity(matrix, knn, shrink, normalize, similarity):
+        from app.recommenders.cython.Compute_Similarity_Cython import \
+            Compute_Similarity_Cython as Cython_Cosine_Similarity
+
         similarity = Cython_Cosine_Similarity(matrix, normalize=normalize, shrink=shrink, similarity=similarity,
                                               topK=knn)
         return similarity.compute_similarity().tocsr()
@@ -59,10 +60,10 @@ class Utils(object):
         UCM = self.get_UCM(URM, tfidf)
 
         try:
-            item_sim = sp.load_npz("item_sim.npz")
+            item_sim = sp.load_npz("../data/item_sim.npz")
             print("similarity matrix loaded from file")
         except:
             print("similarity matrix non available, proceed to compute")
             item_sim = self.get_similarity(UCM, knn, shrink, normalize, similarity)
-            sp.save_npz("item_sim.npz", item_sim)
+            sp.save_npz("../data/item_sim.npz", item_sim)
         return item_sim
