@@ -16,6 +16,7 @@ login = LoginManager()
 # instance of recommender system to be invoked
 recommender = Recommender()
 
+
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class.__module__ + '.' + config_class.__name__)
