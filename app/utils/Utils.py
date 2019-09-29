@@ -60,7 +60,10 @@ class Utils(object):
         UCM = self.get_UCM(URM, tfidf)
 
         try:
-            item_sim = sp.load_npz("../data/item_sim.npz")
+            try:
+                item_sim = sp.load_npz("../data/item_sim.npz")
+            except FileNotFoundError:
+                item_sim = sp.load_npz("app/data/item_sim.npz")
             print("similarity matrix loaded from file")
         except:
             print("similarity matrix non available, proceed to compute")

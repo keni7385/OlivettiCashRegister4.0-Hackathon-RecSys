@@ -55,20 +55,17 @@ class Recommender(object):
         row_ind = np.zeros(data_l, dtype=int)
         # column indices
         col_ind = np.array(data)
-        # data to be stored in COO sparse matrix
+        # data to be stored in CSR sparse matrix
         data = np.ones(data_l, dtype=int)
 
-        mat_coo = sp.coo_matrix((data, (row_ind, col_ind)))
-        target_receipt = mat_coo.tocsr()
-        #return target_receipt
         target_receipt = sp.csr_matrix((data, (row_ind, col_ind)), shape=(1, 24))
         return target_receipt
 
 
 if __name__ == '__main__':
+    # test
+    data = [10, 18]
 
-        data = [10,18]
-
-        run = Recommender()
-        result = run.recommend_itemCFR(target_receipt=data)
-        print(result)
+    run = Recommender()
+    result = run.recommend_itemCFR(target_receipt=data)
+    print(result)
