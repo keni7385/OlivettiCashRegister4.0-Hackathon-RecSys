@@ -20,7 +20,7 @@ def post_transaction():
     data = request.get_json()
     transactions = [p for p in data["transactionList"] if not p.startswith("discount_")]
     discounts = [p for p in data["transactionList"] if p not in transactions]
-    prod_ids = [sku_item_mapper[p] for p in transactions]
+    prod_ids = [sku_item_mapper.get(p, 9) for p in transactions]  # Nutella as default TODO: handle errors in frontend
 
     # delete used discounts from our db
     Discount.query.filter(Discount.sku_id in discounts).delete()
@@ -31,7 +31,7 @@ def post_transaction():
         if prod is not None:
             delete_product_by_id(prod['productId'])
 
-    recommended_product = recommender.recommend_itemCFR(target_receipt=prod_ids)
+    recommended_product = recommender.recommend_itemCFR(target_receipt=list(set(prod_ids)))
     new_discounts = [prod_sku_to_dict(item_sku_mapper[prod_id]) for prod_id in recommended_product]
     offers = {'offers': new_discounts}
 
