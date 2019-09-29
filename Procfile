@@ -1,1 +1,1 @@
-web: flask db upgrade; gunicorn hvideo:app
+web: flask db upgrade; gunicorn minethebill:app

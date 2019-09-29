@@ -1,1 +1,1 @@
-FLASK_APP=hvideo.py
+FLASK_APP=minethebill.py

@@ -1,5 +1,10 @@
-# DBI-Backend
-Backend services for video streaming application exploiting new recommender system for Huawei Video, made for Digital Business Innovation Lab project @Polimi 2018/19
+# MineTheBill @OlivettiCashRegister4.0-Hackathon - Backend component
+
+Are you the owner of a small shop? Would you like to increase customer satisfaction and in a cheap, smart and seamless way?
+
+MineTheBill is an Android app 📱for Olivetti's Smart Cash Register that, at every purchase inside a shop, generates a series of recommended discounts 💰based on the purchase history to improve customer loyalty and engagement.
+
+MineTheBill realized during Olivetti Cash Register 4.0 Hackaton @EIT Digital CLC in Espoo, Finland.
 
 ## Setup
 
@@ -23,13 +28,7 @@ Activate the environment and install requirements:
 So far there is enough to start the `Flask` server (not recommended for production):
 
 ```bash
-(venv) $ flask run
+(venv) $ flask db upgrade; gunicorn minethebill:app
 ```
 
 The `flask` command relies on the `FLASK_APP` environment variable defined in `.flaskenv`.
-
-## Run the test cases
-
-```bash
-python -m unittest
-```
